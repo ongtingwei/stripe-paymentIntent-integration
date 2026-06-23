@@ -1,4 +1,13 @@
 <main>
+  {{#if error}}
+  <div class="mt-40 text-center text-danger">
+    <h1>
+      <i class="far fa-check-circle"></i> 
+      Error
+    </h1>
+    <p class="text-danger">{{error}}</p>
+  </div>
+  {{else}}
   <div class="mt-40 text-center text-success">
     <h1>
       <i class="far fa-check-circle"></i> 
@@ -6,8 +15,12 @@
     </h1>
   </div>
   <div class="mt-40 text-center">
-    <div class="mt-20 text-center text-secondary border-placeholder">
+      <p class="text danger">{{error}}</p>
+      <p class="text-secondary">Thank you for the purchase!</p>
+    {{/if}}
+    <a href="/" class="btn btn-primary mt-20">Back to shop</a>
+    {{!-- <div class="mt-20 text-center text-secondary border-placeholder">
       Add details about the payment here!
-    </div>
+    </div> --}}
   </div>
 </main>

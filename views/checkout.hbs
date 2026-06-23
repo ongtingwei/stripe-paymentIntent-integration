@@ -1,4 +1,4 @@
-<div class="row justify-content-md-center">
+<div class="row justify-content-md-center" id="checkout-container" data-publishable-key="{{publishableKey}}" data-amount="{{amount}}">
   <div class="col-6">
     <div class="text-center mt-40">
       <h1>
@@ -19,8 +19,9 @@
             <label for="email">Email address</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="you@email.com">
           </div>
-          <div class="mt-20 text-center text-secondary border-placeholder">
-            Add Stripe Element here!
+          <div id="payment-element" class="mt-20 text-center text-secondary">
+          </div>
+          <div id="payment-errors" class="mt-20" role="alert">
           </div>
           <div class="mt-20">
             <button type="submit" class="btn btn-lg btn-block btn-primary">Pay $<span class="amount" data-amount="{{amount}}"></span></button>
