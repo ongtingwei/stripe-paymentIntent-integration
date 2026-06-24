@@ -17,7 +17,7 @@ This project demonstrates:
 1. **Full payment lifecycle** — PaymentIntent creation to confirmation
 2. **Security architecture**
    - Key management: Secret key vs Publishable key
-   - Idempotency: API idempotency keys on PaymentIntent creation (already implemented via `uuid`)
+   - Idempotency: API idempotency keys on PaymentIntent creation (implemented via `uuid`)
 3. **Client-side Stripe.js library vs Server-side Stripe API**
 
 
