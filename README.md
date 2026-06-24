@@ -23,7 +23,7 @@ This project demonstrates:
 3. **Client-side Stripe.js library vs Server-side Stripe API**
 
    
-### Why is this important for merchants?
+## Why is this important for merchants?
 1.  **Stripe helps organisation to reduce the burden of PCI compliance.**
 
 By providing a variety of integration methods (E.g. Stripe Elements, separating front-end and back-end APIs) and security measures (E.g. key separation), Stripe ensures that sensitive data is captured and sent directly to Stripe's servers. Because the card numbers do not touch the application servers,  Stripe helps organisation to reduce the burden of PCI compliance.
