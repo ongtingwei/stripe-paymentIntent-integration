@@ -41,7 +41,7 @@ $(document).ready(function() {
     paymentElement.mount('#payment-element')
   });
 
-  //When user clicks submit, call stripe.confirmPayment directly from browser
+  //When user clicks submit, call stripe.confirmPayment directly from front-end
   const form = document.querySelector('form[name="payment-form"]');
   form.addEventListener('submit', async function(e){
     e.preventDefault();

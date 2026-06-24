@@ -2,7 +2,7 @@
 
 This project demonstrates how Stripe's PaymentIntent API works in a full end-to-end e-commerce checkout flow built with Node.js and Express.
 
-## Demo
+## User Experience
 
 ![Demo flow](./public/end-to-end-flow.png)
 
@@ -20,6 +20,12 @@ This project demonstrates:
    - Idempotency: API idempotency keys on PaymentIntent creation (implemented via `uuid`)
 3. **Client-side Stripe.js library vs Server-side Stripe API**
 
+### Why is this important?
+By providing a variety of integration methods (E.g. Stripe Elements, separating front-end and back-end APIs) and security measures (E.g. key separation), Stripe ensures that sensitive data is captured and sent directly to Stripe's servers. Because the card numbers do not touch the application servers, Stripe helps organisation to reduce the burden of PCI compliance.
+[Read more here](https://stripe.com/guides/pci-compliance#how-stripe-helps-organizations-achieve-and-maintain-pci-compliance)
+
+
+With Idempotency, Stripe supports safe retry requests without acceidentally performing the same operation twice. [Read more here](https://docs.stripe.com/api/idempotent_requests)
 
 ## Extension of project (i.e. not part of current project):
 -  **Timeout handling** — Retry logic and proper loading states for the success page
@@ -36,7 +42,7 @@ This project demonstrates:
 ### Prerequisites
 - Node.js installed
 - Stripe account (free)
-- Stripe CLI installed (required for local webhook listener)
+- Stripe CLI installed and logged in (required for local webhook listener)
 
 ### Setup
 
@@ -88,7 +94,7 @@ This project demonstrates:
 | View | Handlebars templates in `views/` |
 | Controller | Express route handlers in `app.js` |
 
-### End-to-End Payment Flow
+### End-to-End Flow
 
 ![Architecture](./public/architecture.svg)
 
@@ -137,15 +143,15 @@ This project demonstrates:
 
 - **`receipt_email` may be null** if the PaymentIntent is created on page load — because the user has not entered their email yet. The workaround is to capture the email from the DOM `<input>` when confirming payment, and pass it via the `return_url` query parameter.
 - **Webhook + paymentStatus pattern** — when implementing fulfillment logic, it should live in the webhook handler, not the `/success` route, to handle cases where the browser closes before the redirect completes.
-- **Race condition** — the webhook and browser redirect happen simultaneously. A 1-second wait in the `/success` route accounts for this in development; a database with polling is the production-grade solution.
+- **Race condition** — the webhook and browser redirect happen simultaneously. A 1-second wait in the `/success` route accounts for this in development. Having a loop to wait for webhook will make it more robust. a database with polling is the production-grade solution.
 
 
 ---
 
 ## Self-Reflection
 
-- Appreciation of Stripe's product design. Documentation is also easy to understand and navigate.
-- Strong knowledge of web application technology is required — real-world customer platforms will be significantly more complex than this project, requiring continuous learning
-- Payment and transaction processing needs to be relentlessly reliable
+- *Appreciation* of Stripe's product design. Documentation is also easy to understand and navigate.
+- Strong knowledge of web application technology is required — real-world customer platforms will be *significantly more complex* than this project, requiring continuous learning.
+- Payment and transaction processing needs to be *relentlessly reliable*.
 
 ---
