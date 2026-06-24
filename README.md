@@ -7,6 +7,7 @@ This project demonstrates how Stripe's PaymentIntent API works in a full end-to-
 ![Demo flow](./public/end-to-end-flow.png)
 
 [Link to slide presentation](https://docs.google.com/presentation/d/1k1B9CeRCdt0OZcQn5O1VHgqxxJLL9GuCt7T27p5FfHg/edit?usp=sharing)
+
 [Link to video demo](https://www.youtube.com/watch?v=JLyaiIxpSBI)
 
 ---
