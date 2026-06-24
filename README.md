@@ -7,6 +7,7 @@ This project demonstrates how Stripe's PaymentIntent API works in a full end-to-
 ![Demo flow](./public/end-to-end-flow.png)
 
 [Link to slide presentation](https://docs.google.com/presentation/d/1k1B9CeRCdt0OZcQn5O1VHgqxxJLL9GuCt7T27p5FfHg/edit?usp=sharing)
+[Link to video demo](https://www.youtube.com/watch?v=JLyaiIxpSBI)
 
 ---
 
@@ -21,11 +22,11 @@ This project demonstrates:
 3. **Client-side Stripe.js library vs Server-side Stripe API**
 
 ### Why is this important?
-By providing a variety of integration methods (E.g. Stripe Elements, separating front-end and back-end APIs) and security measures (E.g. key separation), Stripe ensures that sensitive data is captured and sent directly to Stripe's servers. Because the card numbers do not touch the application servers, Stripe helps organisation to reduce the burden of PCI compliance.
+1. By providing a variety of integration methods (E.g. Stripe Elements, separating front-end and back-end APIs) and security measures (E.g. key separation), Stripe ensures that sensitive data is captured and sent directly to Stripe's servers. Because the card numbers do not touch the application servers, Stripe helps organisation to reduce the burden of PCI compliance.
 [Read more here](https://stripe.com/guides/pci-compliance#how-stripe-helps-organizations-achieve-and-maintain-pci-compliance)
 
 
-With Idempotency, Stripe supports safe retry requests without acceidentally performing the same operation twice. [Read more here](https://docs.stripe.com/api/idempotent_requests)
+2. With Idempotency, Stripe supports safe retry requests without acceidentally performing the same operation twice. [Read more here](https://docs.stripe.com/api/idempotent_requests)
 
 ## Extension of project (i.e. not part of current project):
 -  **Timeout handling** — Retry logic and proper loading states for the success page
