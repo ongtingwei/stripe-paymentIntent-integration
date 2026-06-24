@@ -22,12 +22,18 @@ This project demonstrates:
    - Idempotency: API idempotency keys on PaymentIntent creation (implemented via `uuid`)
 3. **Client-side Stripe.js library vs Server-side Stripe API**
 
-### Why is this important?
-1. By providing a variety of integration methods (E.g. Stripe Elements, separating front-end and back-end APIs) and security measures (E.g. key separation), Stripe ensures that sensitive data is captured and sent directly to Stripe's servers. Because the card numbers do not touch the application servers, Stripe helps organisation to reduce the burden of PCI compliance.
+   
+### Why is this important for merchants?
+1.  **Stripe helps organisation to reduce the burden of PCI compliance.**
+
+By providing a variety of integration methods (E.g. Stripe Elements, separating front-end and back-end APIs) and security measures (E.g. key separation), Stripe ensures that sensitive data is captured and sent directly to Stripe's servers. Because the card numbers do not touch the application servers,  Stripe helps organisation to reduce the burden of PCI compliance.
 [Read more here](https://stripe.com/guides/pci-compliance#how-stripe-helps-organizations-achieve-and-maintain-pci-compliance)
 
 
-2. With Idempotency, Stripe supports safe retry requests without acceidentally performing the same operation twice. [Read more here](https://docs.stripe.com/api/idempotent_requests)
+2. **Guaranteeing “exactly once” payment**
+
+With Idempotency, Stripe supports safe retry requests without acceidentally performing the same operation twice.  [Read more here](https://docs.stripe.com/api/idempotent_requests)
+
 
 ## Extension of project (i.e. not part of current project):
 -  **Timeout handling** — Retry logic and proper loading states for the success page
