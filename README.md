@@ -10,7 +10,7 @@ This project demonstrates how Stripe's PaymentIntent API works in a full end-to-
 
 ![Tech Stach](./public/tech-stack.png)
 
-
+![Link to slide presentation](https://docs.google.com/presentation/d/1k1B9CeRCdt0OZcQn5O1VHgqxxJLL9GuCt7T27p5FfHg/edit?usp=sharing)
 
 ---
 
@@ -19,11 +19,19 @@ This project demonstrates how Stripe's PaymentIntent API works in a full end-to-
 This project demonstrates:
 
 1. **Full payment lifecycle** — PaymentIntent creation to confirmation
-   - What's underneath the hood, and how to implement it
 2. **Security architecture**
    - Key management: Secret key vs Publishable key
+   - Idempotency: API idempotency keys on PaymentIntent creation (already implemented via `uuid`)
 3. **Client-side Stripe.js library vs Server-side Stripe API**
-   - When to use what
+
+
+## Extension of project includes (i.e. not part of current project):
+-  **Timeout handling** — Retry logic and proper loading states for the success page
+- **Additional payment methods** — Buy Now Pay Later (BNPL), bank transfers
+- **Tax handling** — Stripe Tax integration
+- **Shopping cart** — Support for multiple items per transaction
+- **Database** — Replace in-memory `paymentStatus` object with persistent storage
+- **Webhooks fulfillment** — Email delivery of purchase confirmation and content
 
 ---
 
@@ -62,6 +70,8 @@ This project demonstrates:
    ```bash
    stripe listen --forward-to localhost:3000/webhook
    ```
+
+   Pre-requisite: Stripe CLI has to be ![installed](https://docs.stripe.com/stripe-cli/install)
 
 5. Navigate to http://localhost:3000 to view the app.
 
@@ -147,24 +157,13 @@ Frontend (HTML, JS, CSS)  ←→  Backend (Express.js)  ←→  Stripe API
 - **Webhook + paymentStatus pattern** — fulfillment logic should live in the webhook handler, not the `/success` route, to handle cases where the browser closes before the redirect completes.
 - **Race condition** — the webhook and browser redirect happen simultaneously. A 1-second wait in the `/success` route accounts for this in development; a database with polling is the production-grade solution.
 
----
-
-## Potential Extensions
-
-- **Idempotency** — API idempotency keys on PaymentIntent creation (already implemented via `uuid`)
-- **Timeout handling** — Retry logic and proper loading states for the success page
-- **Additional payment methods** — Buy Now Pay Later (BNPL), bank transfers
-- **Tax handling** — Stripe Tax integration
-- **Shopping cart** — Support for multiple items per transaction
-- **Database** — Replace in-memory `paymentStatus` object with persistent storage
-- **Webhooks fulfillment** — Email delivery of purchase confirmation and content
 
 ---
 
 ## Self-Reflection
 
-- Deep appreciation of how Stripe architects their product to ensure customers using the Stripe API can avoid lengthy and costly PCI compliance efforts
-- Strong knowledge of web application technology is required — real-world customer platforms are significantly more complex than this project, requiring continuous learning
-- AI can transform different types of work, but for payment and transaction processing — it needs to be relentlessly reliable
+- Appreciation of Stripe's product design. Documentation is also easy to understand and navigate.
+- Strong knowledge of web application technology is required — real-world customer platforms will be significantly more complex than this project, requiring continuous learning
+- Payment and transaction processing needs to be relentlessly reliable
 
 ---
