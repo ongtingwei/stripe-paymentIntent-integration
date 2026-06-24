@@ -4,13 +4,9 @@ This project demonstrates how Stripe's PaymentIntent API works in a full end-to-
 
 ## Demo
 
-![Demo flow](./public/demo-flow.png)
+![Demo flow](./public/end-to-end-flow.png)
 
-![Architecture](./public/architecture.svg)
-
-![Tech Stach](./public/tech-stack.png)
-
-![Link to slide presentation](https://docs.google.com/presentation/d/1k1B9CeRCdt0OZcQn5O1VHgqxxJLL9GuCt7T27p5FfHg/edit?usp=sharing)
+[Link to slide presentation](https://docs.google.com/presentation/d/1k1B9CeRCdt0OZcQn5O1VHgqxxJLL9GuCt7T27p5FfHg/edit?usp=sharing)
 
 ---
 
@@ -25,7 +21,7 @@ This project demonstrates:
 3. **Client-side Stripe.js library vs Server-side Stripe API**
 
 
-## Extension of project includes (i.e. not part of current project):
+## Extension of project (i.e. not part of current project):
 -  **Timeout handling** — Retry logic and proper loading states for the success page
 - **Additional payment methods** — Buy Now Pay Later (BNPL), bank transfers
 - **Tax handling** — Stripe Tax integration
@@ -40,7 +36,7 @@ This project demonstrates:
 ### Prerequisites
 - Node.js installed
 - Stripe account (free)
-- Stripe CLI installed (`brew install stripe/stripe-tools/stripe`)
+- Stripe CLI installed (required for local webhook listener)
 
 ### Setup
 
@@ -71,9 +67,10 @@ This project demonstrates:
    stripe listen --forward-to localhost:3000/webhook
    ```
 
-   Pre-requisite: Stripe CLI has to be ![installed](https://docs.stripe.com/stripe-cli/install)
+   Pre-requisite: Stripe CLI has been installed from: https://docs.stripe.com/stripe-cli/install
+ 
 
-5. Navigate to http://localhost:3000 to view the app.
+5. **Navigate to http://localhost:3000 to view the app.**
 
 ---
 
@@ -81,9 +78,7 @@ This project demonstrates:
 
 ### High Level Overview
 
-```
-Frontend (HTML, JS, CSS)  ←→  Backend (Express.js)  ←→  Stripe API
-```
+![Tech Stach](./public/tech-stack.png)
 
 ### Architecture Pattern: MVC (Multi-Page Application)
 
@@ -95,20 +90,7 @@ Frontend (HTML, JS, CSS)  ←→  Backend (Express.js)  ←→  Stripe API
 
 ### End-to-End Payment Flow
 
-| Step | Actor | Action |
-|------|-------|--------|
-| 1 | Customer | Clicks Purchase button |
-| 2 | Frontend | Sends GET `/checkout?item=id` to backend |
-| 3 | Backend | Retrieves item title, amount, renders checkout page with `publishableKey` |
-| 4 | Frontend | Initiates Stripe.js with `publishableKey`, sends POST `/create-payment-intent` |
-| 5 | Backend | Calls `stripe.paymentIntents.create()`, returns `clientSecret` |
-| 6 | Frontend | Calls `stripe.elements(clientSecret)`, mounts Payment Element |
-| 7 | Customer | Fills card details and submits form |
-| 8 | Frontend | Calls `stripe.confirmPayment()` — card data goes directly to Stripe |
-| 9 | Stripe | Processes payment, sends `payment_intent.succeeded` webhook, redirects browser to `/success` |
-| 10 | Backend | Webhook sets `paymentStatus[id] = true` |
-| 11 | Backend | GET `/success` waits 1s, checks `paymentStatus`, retrieves PaymentIntent, renders success page |
-| 12 | Customer | Receives acknowledgement |
+![Architecture](./public/architecture.svg)
 
 ### Security Architecture
 
@@ -138,7 +120,7 @@ Frontend (HTML, JS, CSS)  ←→  Backend (Express.js)  ←→  Stripe API
 ## How I Approached This Problem
 
 1. **Research** — YouTube videos, demos, and Stripe documentation to understand the art of possibility with Stripe integration
-2. **Envision** — User flow design and solution architecture, understanding the boilerplate template and built-in resources
+2. **Plan** — User flow design and solution architecture, understanding the boilerplate template and built-in resources
 3. **Build, test, and improve** — Iterative development with testing at each step
 4. **Document** — Architecture diagrams and workflow diagrams
 
@@ -154,7 +136,7 @@ Frontend (HTML, JS, CSS)  ←→  Backend (Express.js)  ←→  Stripe API
 ## Learning Lessons
 
 - **`receipt_email` may be null** if the PaymentIntent is created on page load — because the user has not entered their email yet. The workaround is to capture the email from the DOM `<input>` when confirming payment, and pass it via the `return_url` query parameter.
-- **Webhook + paymentStatus pattern** — fulfillment logic should live in the webhook handler, not the `/success` route, to handle cases where the browser closes before the redirect completes.
+- **Webhook + paymentStatus pattern** — when implementing fulfillment logic, it should live in the webhook handler, not the `/success` route, to handle cases where the browser closes before the redirect completes.
 - **Race condition** — the webhook and browser redirect happen simultaneously. A 1-second wait in the `/success` route accounts for this in development; a database with polling is the production-grade solution.
 
 
